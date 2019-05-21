@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{950D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Whitelist.Tests", "tests\AspNetCore.Whitelist.Tests\AspNetCore.Whitelist.Tests.csproj", "{255B280C-94F0-4600-82E1-CABAC97B7D1C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Whitelist.Samples.InMemoryListConfiguration", "src\samples\AspNetCore.Whitelist.Samples.InMemoryListConfiguration\AspNetCore.Whitelist.Samples.InMemoryListConfiguration.csproj", "{602BF460-B50A-4C90-ADE4-62892948D760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{255B280C-94F0-4600-82E1-CABAC97B7D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{255B280C-94F0-4600-82E1-CABAC97B7D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{255B280C-94F0-4600-82E1-CABAC97B7D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602BF460-B50A-4C90-ADE4-62892948D760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602BF460-B50A-4C90-ADE4-62892948D760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602BF460-B50A-4C90-ADE4-62892948D760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602BF460-B50A-4C90-ADE4-62892948D760}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{007A298B-33C6-4135-81DB-5107193BD2E6} = {950DF50A-BFA5-45A9-BC35-CA59FD564EDF}
+		{602BF460-B50A-4C90-ADE4-62892948D760} = {950DF50A-BFA5-45A9-BC35-CA59FD564EDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E64D5365-2DAB-49AE-9530-575A193B2E5B}

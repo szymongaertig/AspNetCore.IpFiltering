@@ -18,9 +18,9 @@ Install-Package DotNetCore.Whitelist
 
 ## Usage
 
-## Appsetting base configuration
+## Appsetting based configuration
 
-Startup.cs file:
+### Startup.cs file:
 ```
 public class Startup
     {
@@ -43,7 +43,7 @@ public class Startup
     }
 ```
 
-appsettings.yml file:
+### appsettings.yml file:
 ```
 {
   "Whitelist" : {
@@ -54,6 +54,60 @@ appsettings.yml file:
   }
 }
 ```
+## Custom provider based configuration 
+
+### Startup.cs file:
+```
+public class Startup
+    {
+        // ....
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // ...
+            
+            services.AddTransient<IWhitelistIpAddressesProvider, InMemoryListAddressesProvider>();
+            services.AddWhiteList(new WhitelistOptions
+            {
+                IpListSource = IpListSource.Provider,
+                FailureHttpStatusCode = 404
+            });
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            // ...
+
+            app.UseWhitelistMiddleware();
+            app.UseMvc();
+        }
+    }
+
+```
+
+### InMemoryListAddressesProvider class:
+
+```
+    public class InMemoryListAddressesProvider : IWhitelistIpAddressesProvider
+    {
+        public Task<IpAddressRangeWithWildcard[]> GetBlacklist()
+        {
+            return Task.FromResult(new[] {
+                IpAddressRangeWithWildcard.Parse("127.0.0.4"),
+                IpAddressRangeWithWildcard.Parse("127.0.0.5")
+            });
+        }
+
+        public Task<IpAddressRangeWithWildcard[]> GetWhitelist()
+        {
+            return Task.FromResult(new[] {
+                IpAddressRangeWithWildcard.GetWildcardRange()
+            });
+        }
+    }
+```
+
+In real implementation you would make a real db call instead of returning static list.
 
 ## More samples can be found here: 
 [https://github.com/garfieldos/AspNetCore.Whitelist/tree/master/src/samples](https://github.com/garfieldos/AspNetCore.Whitelist/tree/master/src/samples)
