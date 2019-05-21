@@ -8,7 +8,8 @@
         <PackageProjectUrl>https://github.com/garfieldos/AspNetCore.Whitelist</PackageProjectUrl>
         <RepositoryUrl>https://github.com/garfieldos/AspNetCore.Whitelist</RepositoryUrl>
         <PackageTags>Whitelist middleware, IP filtering, asp.net core</PackageTags>
-      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Version>1.0.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
