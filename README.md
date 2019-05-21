@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/0i1q8dxpl876jfkj?svg=true)](https://ci.appveyor.com/project/garfieldos/aspnetcore-whitelist)
+[![Build status](https://ci.appveyor.com/api/projects/status/d2y382vrdtbnkbgj?svg=true)](https://ci.appveyor.com/project/garfieldos/aspnetcore-whitelist)
 
 # AspNetCore.Whitelist
 
