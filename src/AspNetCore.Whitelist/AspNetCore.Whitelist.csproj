@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>Whitelist (IP filtering) functionality for asp.net Core</Description>
+        <Copyright>Szymon Gaertig</Copyright>
+        <PackageProjectUrl>https://github.com/garfieldos/AspNetCore.Whitelist</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/garfieldos/AspNetCore.Whitelist</RepositoryUrl>
+        <PackageTags>Whitelist middleware, IP filtering, asp.net core</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IPAddressRange" Version="3.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    </ItemGroup>
+
+</Project>

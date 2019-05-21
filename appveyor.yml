@@ -1,0 +1,27 @@
+image: Visual Studio 2017
+configuration: Release
+version: '1.0.{build}'
+
+dotnet_csproj:
+    patch: true
+    file: src\AspNetCore.Whitelist\AspNetCore.Whitelist.csproj
+    version: '{version}'
+    
+before_build:
+- cmd: >-
+    dotnet restore
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  include_nuget_references: true
+  verbosity: minimal
+
+test_script:
+  - cmd: dotnet test tests\AspNetCore.Whitelist.Tests\AspNetCore.Whitelist.Tests.csproj
+
+deploy:
+  provider: NuGet
+  api_key:
+    secure: StfBx5rtiIfmgrZoOB7CCkuFLMAGTMl9Qe7bcTSc3IV4nS1Klgn7QTquZykOokCk
+  skip_symbols: true
+  artifact: /.*\.nupkg/
