@@ -5,8 +5,8 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Whitelist (IP filtering) functionality for asp.net Core</Description>
         <Copyright>Szymon Gaertig</Copyright>
-        <PackageProjectUrl>https://github.com/garfieldos/AspNetCore.Whitelist</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/garfieldos/AspNetCore.Whitelist</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/garfieldos/AspNetCore.IpFiltering</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/garfieldos/AspNetCore.IpFiltering</RepositoryUrl>
         <PackageTags>Whitelist middleware, IP filtering, asp.net core</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Version>1.0.0</Version>

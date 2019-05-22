@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/d2y382vrdtbnkbgj?svg=true)](https://ci.appveyor.com/project/garfieldos/aspnetcore-whitelist)
+[![Build status](https://ci.appveyor.com/api/projects/status/7n41lpcl451xjlat?svg=true)](https://ci.appveyor.com/project/garfieldos/aspnetcore-ipfiltering)
 
 # AspNetCore.IpFiltering
 
@@ -113,4 +113,4 @@ public class Startup
 In real implementation you would make a real db call instead of returning static list.
 
 ## More samples can be found here: 
-[https://github.com/garfieldos/AspNetCore.Whitelist/tree/master/src/samples](https://github.com/garfieldos/AspNetCore.Whitelist/tree/master/src/samples)
+[https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples](https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples)
