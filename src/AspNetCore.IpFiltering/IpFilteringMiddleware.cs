@@ -32,7 +32,7 @@ namespace AspNetCore.Whitelist
             var xOriginalFor = context.Request.Headers["X-Original-For"];            
             var remoteIp = context.Connection.RemoteIpAddress;
             
-            _logger.LogWarning("Request from remote IP: {ClientIP}. X-Original-For: {ProxyIP}", remoteIp,xOriginalFor.FirstOrDefault());
+            _logger.LogInformation("Request from remote IP: {ClientIP}. X-Original-For: {ProxyIP}", remoteIp,xOriginalFor.FirstOrDefault());
 
             var cachedAllowAccess = await _ipAddressResultCache.AllowAddress(remoteIp);
 
