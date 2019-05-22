@@ -14,7 +14,7 @@ Configuration of whitelist and blacklist addresses can be made by: asp.net Core 
 
 ## Get in on NuGet
 ```
-Install-Package DotNetCore.Whitelist
+Install-Package AspNetCore.Whitelist
 ```
 
 ## Usage
