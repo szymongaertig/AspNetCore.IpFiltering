@@ -1,8 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/d2y382vrdtbnkbgj?svg=true)](https://ci.appveyor.com/project/garfieldos/aspnetcore-whitelist)
 
-# AspNetCore.Whitelist
+# AspNetCore.IpFiltering
 
-A midleware that allows whitelist or blacklist incoming requests. 
+A midleware that allows whitelist or blacklist (Ip filtering) incoming requests. 
 
 It supports: 
 * single IP
@@ -14,7 +14,7 @@ Configuration of whitelist and blacklist addresses can be made by: asp.net Core 
 
 ## Get in on NuGet
 ```
-Install-Package AspNetCore.Whitelist
+Install-Package AspNetCore.IpFiltering
 ```
 
 ## Usage
@@ -31,14 +31,14 @@ public class Startup
         {
             // ...
 
-            services.AddWhiteList(_configuration.GetSection("Whitelist"));
+            services.AddIpFiltering(_configuration.GetSection("IpFilteringConfiguration"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // ...
 
-            app.UseWhitelistMiddleware();
+            app.UseIpFilteringMiddleware();
             app.UseMvc();
         }
     }
@@ -70,7 +70,7 @@ public class Startup
             // ...
             
             services.AddTransient<IIpRulesProvider, InMemoryListRulesProvider>();
-            services.AddWhiteList(new WhitelistOptions
+            services.AddIpFiltering(new WhitelistOptions
             {
                 IpListSource = IpListSource.Provider,
                 FailureHttpStatusCode = 404
@@ -81,7 +81,7 @@ public class Startup
         {
             // ...
 
-            app.UseWhitelistMiddleware();
+            app.UseIpFilteringMiddleware();
             app.UseMvc();
         }
     }
