@@ -4,7 +4,7 @@ version: '1.0.{build}'
 
 dotnet_csproj:
     patch: true
-    file: src\AspNetCore.Whitelist\AspNetCore.Whitelist.csproj
+    file: src\AspNetCore.IpFiltering\AspNetCore.IpFiltering.csproj
     version: '{version}'
     
 before_build:
@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 
 test_script:
-  - cmd: dotnet test tests\AspNetCore.Whitelist.Tests\AspNetCore.Whitelist.Tests.csproj
+  - cmd: dotnet test tests\AspNetCore.IpFiltering.Tests\AspNetCore.IpFiltering.Tests.csproj
 
 deploy:
   provider: NuGet
