@@ -49,12 +49,13 @@ public class Startup
 {
     "IpFilteringConfiguration" : {
         "Whitelist": ["*"],
-        "Blacklist": [],
+        "Blacklist": [""],
         "IpRulesSource": "Configuration",
         "IpRulesCacheSource" : "Configuration",
         "DefaultIpRuleCacheDuration" : "300",
-        "FailureHttpStatusCode": "404"
-    },
+        "FailureHttpStatusCode": "403",
+        "FailureMessage" : "IP address rejected"
+    }
 }
 ```
 ## Custom provider based configuration 

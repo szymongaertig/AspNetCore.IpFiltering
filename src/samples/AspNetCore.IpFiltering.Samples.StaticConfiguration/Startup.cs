@@ -21,7 +21,7 @@ namespace DotNetCore.Whitelist.Samples.StaticConfiguration
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddIpFiltering(_configuration.GetSection("Whitelist"));
+            services.AddIpFiltering(_configuration.GetSection("IpFilteringConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
