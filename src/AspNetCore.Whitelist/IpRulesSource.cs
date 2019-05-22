@@ -1,6 +1,6 @@
 namespace AspNetCore.Whitelist
 {
-    public enum IpListSource
+    public enum IpRulesSource
     {
         Configuration,
         Provider

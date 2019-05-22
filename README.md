@@ -8,8 +8,9 @@ It supports:
 * single IP
 * IP range IPv4 and IPv6
 * wildcard (*)
+* configurable caching
 
-Configuration of whitelist and blacklist addresses can be made by: asp.net Core configuration system or by implementing custom `IWhitelistIpAddressesProvider`.
+Configuration of whitelist and blacklist addresses can be made by: asp.net Core configuration system or by implementing custom `IIpRulesProvider`.
 
 ## Get in on NuGet
 ```
@@ -46,12 +47,14 @@ public class Startup
 ### appsettings.yml file:
 ```
 {
-  "Whitelist" : {
-    "Whitelist": ["127.0.0.1"],
-    "Blacklist": [],
-    "IpListSource": "Configuration",
-    "FailureHttpStatusCode": "404"
-  }
+    "Whitelist" : {
+        "Whitelist": ["*"],
+        "Blacklist": [],
+        "IpRulesSource": "Configuration",
+        "IpRuleCacheSource" : "Configuration",
+        "DefaultIpRuleCacheDuration" : "300",
+        "FailureHttpStatusCode": "404"
+    },
 }
 ```
 ## Custom provider based configuration 
@@ -85,24 +88,24 @@ public class Startup
 
 ```
 
-### InMemoryListAddressesProvider class:
+### InMemoryListRulesProvider class:
 
 ```
-    public class InMemoryListAddressesProvider : IWhitelistIpAddressesProvider
+    public class InMemoryListRulesProvider : IIpRulesProvider
     {
-        public Task<IpAddressRangeWithWildcard[]> GetBlacklist()
+        public Task<IpRule[]> GetIpRules()
         {
-            return Task.FromResult(new[] {
-                IpAddressRangeWithWildcard.Parse("127.0.0.4"),
-                IpAddressRangeWithWildcard.Parse("127.0.0.5")
-            });
-        }
-
-        public Task<IpAddressRangeWithWildcard[]> GetWhitelist()
-        {
-            return Task.FromResult(new[] {
-                IpAddressRangeWithWildcard.GetWildcardRange()
-            });
+            return Task.FromResult(new List<IpRule>()
+            {
+                // blacklist
+                new IpRule(IpAddressRangeWithWildcard.Parse("127.0.0.4"),
+                    IpRuleType.Blacklist),
+                new IpRule(IpAddressRangeWithWildcard.Parse("127.0.0.4"),
+                    IpRuleType.Blacklist),
+                
+                // whitelist
+                new IpRule(IpAddressRangeWithWildcard.GetWildcardRange(),IpRuleType.Whitelist)
+            }.ToArray());
         }
     }
 ```

@@ -2,17 +2,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using DotNetCore.Whitelist.Tests.AddressValidatorTests;
 using Moq;
 using Xunit;
-using AspNetCore.Whitelist;
 
-namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
+namespace AspNetCore.Whitelist.Tests.AddressValidatorTests
 {
     public class WhenInvokingAllowAccessTests
     {
         private string[] GetListFromStr(string addressesStr)
         {
             return addressesStr.Split(",");
+        }
+
+        private List<IpRule> GetAddressDefinitions(
+            string whitelist,
+            string blacklist)
+        {
+            var result = new List<IpRule>();
+
+            if (whitelist != null)
+            {
+                result.AddRange(GetListFromStr(whitelist)
+                    .Select(x => x.ConvertToIpRange())
+                    .Select(x => new IpRule(x, IpRuleType.Whitelist)));    
+            }
+            
+            if (blacklist != null)
+            {
+                result.AddRange(GetListFromStr(blacklist)
+                    .Select(x => x.ConvertToIpRange())
+                    .Select(x => new IpRule(x, IpRuleType.Blacklist)));
+            }
+            
+            return result;
         }
 
         [Theory]
@@ -24,11 +47,8 @@ namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
         {
             // Given
             var fixture = new AddressValidatorTestsFixture();
-            fixture.AddressesProviderMock.Setup(x => x.GetWhitelist())
-                .ReturnsAsync(GetListFromStr(whitelist).Select(x => x.ConvertToIpRange()).ToArray());
-
-            fixture.AddressesProviderMock.Setup(x => x.GetBlacklist())
-                .ReturnsAsync(new List<IpAddressRangeWithWildcard>().ToArray());
+            fixture.AddressesProviderMock.Setup(x => x.GetIpRules())
+                .ReturnsAsync(GetAddressDefinitions(whitelist,null).ToArray());
 
             // When
             var result = await fixture.Sut.AllowAccess(IPAddress.Parse(remoteIp));
@@ -46,11 +66,8 @@ namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
         {
             // Given
             var fixture = new AddressValidatorTestsFixture();
-            fixture.AddressesProviderMock.Setup(x => x.GetWhitelist())
-                .ReturnsAsync(GetListFromStr(whitelist).Select(x => x.ConvertToIpRange()).ToArray());
-
-            fixture.AddressesProviderMock.Setup(x => x.GetBlacklist())
-                .ReturnsAsync(new List<IpAddressRangeWithWildcard>().ToArray());
+            fixture.AddressesProviderMock.Setup(x => x.GetIpRules())
+                .ReturnsAsync(GetAddressDefinitions(whitelist,null).ToArray());
 
             // When
             var result = await fixture.Sut.AllowAccess(IPAddress.Parse(remoteIp));
@@ -67,12 +84,8 @@ namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
             string remoteIp)
         {
             // Given
-            var fixture = new AddressValidatorTestsFixture();
-            fixture.AddressesProviderMock.Setup(x => x.GetWhitelist())
-                .ReturnsAsync(new List<IpAddressRangeWithWildcard>().ToArray());
-
-            fixture.AddressesProviderMock.Setup(x => x.GetBlacklist())
-                .ReturnsAsync(GetListFromStr(blackList).Select(x => x.ConvertToIpRange()).ToArray());
+            var fixture = new AddressValidatorTestsFixture();fixture.AddressesProviderMock.Setup(x => x.GetIpRules())
+                .ReturnsAsync(GetAddressDefinitions(null,blackList).ToArray());
 
             // When
             var result = await fixture.Sut.AllowAccess(IPAddress.Parse(remoteIp));
@@ -91,11 +104,8 @@ namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
         {
             // Given
             var fixture = new AddressValidatorTestsFixture();
-            fixture.AddressesProviderMock.Setup(x => x.GetWhitelist())
-                .ReturnsAsync(GetListFromStr(whitelist).Select(x => x.ConvertToIpRange()).ToArray());
-
-            fixture.AddressesProviderMock.Setup(x => x.GetBlacklist())
-                .ReturnsAsync(GetListFromStr(blacklist).Select(x => x.ConvertToIpRange()).ToArray());
+            fixture.AddressesProviderMock.Setup(x => x.GetIpRules())
+                .ReturnsAsync(GetAddressDefinitions(whitelist,blacklist).ToArray());
 
             // When
             var result = await fixture.Sut.AllowAccess(IPAddress.Parse(remoteIp));
@@ -114,11 +124,8 @@ namespace DotNetCore.Whitelist.Tests.AddressValidatorTests
         {
             // Given
             var fixture = new AddressValidatorTestsFixture();
-            fixture.AddressesProviderMock.Setup(x => x.GetWhitelist())
-                .ReturnsAsync(GetListFromStr(whitelist).Select(x => x.ConvertToIpRange()).ToArray());
-
-            fixture.AddressesProviderMock.Setup(x => x.GetBlacklist())
-                .ReturnsAsync(GetListFromStr(blacklist).Select(x => x.ConvertToIpRange()).ToArray());
+            fixture.AddressesProviderMock.Setup(x => x.GetIpRules())
+                .ReturnsAsync(GetAddressDefinitions(whitelist,blacklist).ToArray());
 
             // When
             var result = await fixture.Sut.AllowAccess(IPAddress.Parse(remoteIp));

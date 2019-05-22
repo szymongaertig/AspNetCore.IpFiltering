@@ -7,13 +7,13 @@ namespace AspNetCore.Whitelist
 {
     public class AddressValidator : IIpAddressValidator
     {
-        private readonly IWhitelistIpAddressesProvider _addressesProvider;
+        private readonly IIpRulesProvider _rulesProvider;
         private ILogger<AddressValidator> _logger;
 
-        public AddressValidator(IWhitelistIpAddressesProvider addressesProvider,
+        public AddressValidator(IIpRulesProvider rulesProvider,
             ILogger<AddressValidator> logger)
         {
-            _addressesProvider = addressesProvider;
+            _rulesProvider = rulesProvider;
             _logger = logger;
         }
 
@@ -22,10 +22,11 @@ namespace AspNetCore.Whitelist
             bool existsOnWhitelist = false;
             bool existsOnBlacklist = false;
 
-            var blackList = await _addressesProvider.GetBlacklist();
+            var ipRules = await _rulesProvider.GetIpRules();
+            var blackList = ipRules.Where(x => x.Type == IpRuleType.Blacklist).Select(x => x.AddressRange);
             existsOnBlacklist = blackList.Any(x => x.Contains(ipAddress));
-
-            var whiteList = await _addressesProvider.GetWhitelist();
+            
+            var whiteList = ipRules.Where(x => x.Type == IpRuleType.Whitelist).Select(x => x.AddressRange);
             existsOnWhitelist = whiteList.Any(x => x.Contains(ipAddress));
 
             if (existsOnBlacklist)

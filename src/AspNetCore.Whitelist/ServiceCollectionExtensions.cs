@@ -28,13 +28,20 @@ namespace AspNetCore.Whitelist
             
             serviceCollection.AddSingleton<WhitelistOptions>(options);
 
-            if (options.IpListSource == IpListSource.Configuration)
+            if (options.IpRulesSource == IpRulesSource.Configuration)
             {
-                serviceCollection.AddSingleton<IWhitelistIpAddressesProvider>(new DefaultWhitelistIpAddressesProvider(
+                serviceCollection.AddSingleton<IIpRulesProvider>(new DefaultIpRulesProvider(
                     options.Whitelist,
                     options.Blacklist));
             }
 
+            if (options.IpRuleCacheSource == IpRuleCacheSource.Configuration)
+            {
+                serviceCollection.AddSingleton<IIpAddressResultCache>(new DefaultIpResultCache(options.IpRulesSource == IpRulesSource.Configuration
+                                                                                               ? options.DefaultIpRuleCacheDuration
+                                                                                               : null));
+            }
+            
             serviceCollection.AddSingleton<IIpAddressValidator, AddressValidator>();
         }
 

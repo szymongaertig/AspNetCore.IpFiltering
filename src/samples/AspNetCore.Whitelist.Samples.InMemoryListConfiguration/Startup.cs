@@ -19,10 +19,10 @@ namespace AspNetCore.Whitelist.Samples.InMemoryListConfiguration
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<IWhitelistIpAddressesProvider, InMemoryListAddressesProvider>();
+            services.AddTransient<IIpRulesProvider, InMemoryListRulesProvider>();
             services.AddWhiteList(new WhitelistOptions
             {
-                IpListSource = IpListSource.Provider,
+                IpRulesSource = IpRulesSource.Provider,
                 FailureHttpStatusCode = 404
             });
         }

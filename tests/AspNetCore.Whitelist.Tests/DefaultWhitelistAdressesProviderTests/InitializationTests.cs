@@ -1,8 +1,8 @@
-using AspNetCore.Whitelist;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DotNetCore.Whitelist.Tests.DefaultWhitelistAdressesProviderTests
+namespace AspNetCore.Whitelist.Tests.DefaultWhitelistAdressesProviderTests
 {
     public class InitializationTests
     {
@@ -15,15 +15,16 @@ namespace DotNetCore.Whitelist.Tests.DefaultWhitelistAdressesProviderTests
         public async Task WithoutBlacklistAndWhitelistProvided_ThenReturnValidNUmberOfElements()
         {
             // When
-            var provider = new DefaultWhitelistIpAddressesProvider(null,null);
+            var provider = new DefaultIpRulesProvider(null,null);
             
             // Then
             Assert.NotNull(provider);
-            
-            var numberOfWhitelistElements = await provider.GetWhitelist();
-            Assert.Empty(numberOfWhitelistElements);
+            var numberOfIpRules = await provider.GetIpRules();
 
-            var numberOfBlacklistElements = await provider.GetBlacklist();
+            var numberOfWhitelistElements = numberOfIpRules.Where(x => x.Type == IpRuleType.Whitelist);
+            Assert.Empty(numberOfWhitelistElements);
+            
+            var numberOfBlacklistElements = numberOfIpRules.Where(x => x.Type == IpRuleType.Blacklist);
             Assert.Empty(numberOfBlacklistElements);
         }
         
@@ -38,12 +39,12 @@ namespace DotNetCore.Whitelist.Tests.DefaultWhitelistAdressesProviderTests
             var whitelistStr = GetListFromStr(whiteList);
             
             // When
-            var provider = new DefaultWhitelistIpAddressesProvider(whitelistStr,new string[0]);
+            var provider = new DefaultIpRulesProvider(whitelistStr,new string[0]);
             
             // Then
             Assert.NotNull(provider);
-            var numberOfWhiteListElements = await provider.GetWhitelist();
-            Assert.Equal(numberOfElements, numberOfWhiteListElements.Length);
+            var numberOfWhiteListElements = (await provider.GetIpRules()).Where(x => x.Type == IpRuleType.Whitelist);
+            Assert.Equal(numberOfElements, numberOfWhiteListElements.Count());
         }
         
         
@@ -58,12 +59,12 @@ namespace DotNetCore.Whitelist.Tests.DefaultWhitelistAdressesProviderTests
             var blacklistStr = GetListFromStr(blacklist);
             
             // When
-            var provider = new DefaultWhitelistIpAddressesProvider(null,blacklistStr);
+            var provider = new DefaultIpRulesProvider(null,blacklistStr);
             
             // Then
             Assert.NotNull(provider);
-            var numberOfBlacklistElements = await provider.GetBlacklist();
-            Assert.Equal(numberOfElements, numberOfBlacklistElements.Length);
+            var numberOfBlacklistElements = (await provider.GetIpRules()).Where(x => x.Type == IpRuleType.Blacklist);
+            Assert.Equal(numberOfElements, numberOfBlacklistElements.Count());
         }
     }
 }
