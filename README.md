@@ -69,7 +69,7 @@ public class Startup
         {
             // ...
             
-            services.AddTransient<IWhitelistIpAddressesProvider, InMemoryListAddressesProvider>();
+            services.AddTransient<IIpRulesProvider, InMemoryListRulesProvider>();
             services.AddWhiteList(new WhitelistOptions
             {
                 IpListSource = IpListSource.Provider,

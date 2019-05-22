@@ -19,7 +19,6 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
-      <PackageReference Include="Npgsql" Version="4.0.7" />
       <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
     </ItemGroup>
 
