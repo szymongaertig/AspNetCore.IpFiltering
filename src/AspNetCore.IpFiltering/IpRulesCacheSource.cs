@@ -1,6 +1,6 @@
 namespace AspNetCore.IpFiltering
 {
-    public enum IpRuleCacheSource
+    public enum IpRulesCacheSource
     {
         Configuration,
         Provider

@@ -35,7 +35,7 @@ namespace AspNetCore.IpFiltering
                     options.Blacklist));
             }
 
-            if (options.IpRuleCacheSource == IpRuleCacheSource.Configuration)
+            if (options.IpRulesCacheSource == IpRulesCacheSource.Configuration)
             {
                 serviceCollection.AddSingleton<IIpAddressResultCache>(new DefaultIpResultCache(options.IpRulesSource == IpRulesSource.Configuration
                                                                                                ? options.DefaultIpRuleCacheDuration

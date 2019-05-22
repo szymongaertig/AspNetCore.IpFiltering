@@ -47,11 +47,11 @@ public class Startup
 ### appsettings.yml file:
 ```
 {
-    "Whitelist" : {
+    "IpFilteringConfiguration" : {
         "Whitelist": ["*"],
         "Blacklist": [],
         "IpRulesSource": "Configuration",
-        "IpRuleCacheSource" : "Configuration",
+        "IpRulesCacheSource" : "Configuration",
         "DefaultIpRuleCacheDuration" : "300",
         "FailureHttpStatusCode": "404"
     },
