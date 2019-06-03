@@ -36,14 +36,17 @@ namespace AspNetCore.IpFiltering
                     _logger.LogWarning("IP {IP} exists on both Whitelist and Blacklist", ipAddress);
                 }
 
+                _logger.LogDebug("IP {IP} is not allowed because it appear in BlackList",ipAddress);
                 return false;
             }
 
             if (existsOnWhitelist)
             {
+                _logger.LogDebug("IP {IP} is allowed because it not appear in whitelist",ipAddress);
                 return true;
             }
-
+            
+            _logger.LogDebug("IP {IP} is not allowed because it not appear in both whitelist and blacklist",ipAddress);
             return false;
         }
     }

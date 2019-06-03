@@ -111,7 +111,9 @@ public class Startup
     }
 ```
 
-In real implementation you would make a real db call instead of returning static list.
+In real live implementation you would make a db call instead of returning static list.
 
+## Configuration with reverse proxy
+AspnetCore.IpFiltering takes Client IP address from `context.Connection.RemoteIpAddress`. It will work in case of exposing your application without any reverse proxy. If you want to make it work with reverse proxy, please use [ForwardedHeaderMiddleware](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-2.2) before `IpFilteringMiddleware`.
 ## More samples can be found here: 
 [https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples](https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples)
