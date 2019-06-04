@@ -9,5 +9,6 @@ namespace AspNetCore.IpFiltering
         public int? DefaultIpRuleCacheDuration { get; set; } = 60;
         public int FailureHttpStatusCode { get; set; } = 404;
         public string FailureMessage { get; set; }
+        public string[] IgnoredPaths { get; set; }
     }
 }

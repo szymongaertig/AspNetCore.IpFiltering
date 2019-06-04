@@ -1,4 +1,3 @@
-using AspNetCore.Whitelist;
 using Microsoft.AspNetCore.Builder;
 
 namespace AspNetCore.IpFiltering

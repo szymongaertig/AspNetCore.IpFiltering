@@ -24,7 +24,9 @@ namespace AspNetCore.IpFiltering.Samples.InMemoryListConfiguration
             services.AddIpFiltering(new IpFilteringOptions
             {
                 IpRulesSource = IpRulesSource.Provider,
-                FailureHttpStatusCode = 404
+                FailureHttpStatusCode = 403,
+                FailureMessage = "You shall not pass!",
+                IgnoredPaths = new[] {"\\/api\\/some-unguarded-data","api\\/some-unguarded-data"}
             });
         }
 

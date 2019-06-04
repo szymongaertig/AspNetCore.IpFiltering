@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCore.IpFiltering.Samples.InMemoryListConfiguration.Controllers
+namespace AspNetCore.IpFiltering.Samples.StaticConfiguration.Controllers
 {
     [ApiController]
     public class ValuesController : ControllerBase
@@ -19,6 +15,12 @@ namespace AspNetCore.IpFiltering.Samples.InMemoryListConfiguration.Controllers
         public IActionResult GetUnguardedData()
         {
             return this.Ok("Some unguarded data");
+        }
+
+        [HttpGet("api/some-data/{id}")]
+        public IActionResult GetSpecificData(int id)
+        {
+            return this.Ok($"Specific data for id: {id}");
         }
     }
 }

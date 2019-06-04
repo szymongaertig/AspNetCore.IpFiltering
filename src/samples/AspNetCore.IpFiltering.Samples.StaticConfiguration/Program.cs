@@ -1,7 +1,8 @@
+using DotNetCore.Whitelist.Samples.StaticConfiguration;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace DotNetCore.Whitelist.Samples.StaticConfiguration
+namespace AspNetCore.IpFiltering.Samples.StaticConfiguration
 {
     public class Program
     {
