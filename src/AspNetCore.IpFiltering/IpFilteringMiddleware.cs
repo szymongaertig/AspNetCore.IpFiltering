@@ -12,13 +12,13 @@ namespace AspNetCore.IpFiltering
         private readonly RequestDelegate _next;
         private readonly ILogger<IpFilteringMiddleware> _logger;
         private readonly IIpAddressValidator _addressValidator;
-        private readonly IpFilteringOptions _options;
+        private readonly IIpFilteringOptions _options;
         private readonly IIpAddressResultCache _ipAddressResultCache;
-        
+
         public IpFilteringMiddleware(RequestDelegate next,
             ILogger<IpFilteringMiddleware> logger,
             IIpAddressValidator addressValidator,
-            IpFilteringOptions options,
+            IIpFilteringOptions options,
             IIpAddressResultCache ipAddressResultCache)
         {
             _addressValidator = addressValidator;
@@ -30,17 +30,19 @@ namespace AspNetCore.IpFiltering
 
         public async Task Invoke(HttpContext context)
         {
-            var xOriginalFor = context.Request.Headers["X-Original-For"];            
+            var xOriginalFor = context.Request.Headers["X-Original-For"];
             var remoteIp = context.Connection.RemoteIpAddress;
-            
-            _logger.LogInformation("Request from remote IP: {ClientIP}. X-Original-For: {ProxyIP}", remoteIp,xOriginalFor.FirstOrDefault());
+
+            _logger.LogInformation("Request from remote IP: {ClientIP}. X-Original-For: {ProxyIP}", remoteIp,
+                xOriginalFor.FirstOrDefault());
 
             if (ValidateWhitelist(context))
             {
-                var cachedAllowAccess = await _ipAddressResultCache.AllowAddress(remoteIp);
+                var cachedAllowAccess = await _ipAddressResultCache
+                    .AllowAddress(remoteIp);
 
                 var allowAccess = cachedAllowAccess ?? await _addressValidator.AllowAccess(remoteIp);
-            
+
                 if (!cachedAllowAccess.HasValue)
                 {
                     await _ipAddressResultCache.SaveResult(remoteIp, allowAccess);
@@ -52,9 +54,9 @@ namespace AspNetCore.IpFiltering
                     context.Response.StatusCode = _options.FailureHttpStatusCode;
                     await context.Response.WriteAsync(_options.FailureMessage);
                     return;
-                }    
+                }
             }
-           
+
             await _next.Invoke(context);
         }
 
@@ -64,6 +66,7 @@ namespace AspNetCore.IpFiltering
             {
                 return true;
             }
+
             var currentPath = context.Request.Path;
             return _options.IgnoredPaths.All(ip => !Regex.IsMatch(currentPath, ip, RegexOptions.IgnoreCase));
         }

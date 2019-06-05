@@ -1,6 +1,18 @@
 namespace AspNetCore.IpFiltering
 {
-    public class IpFilteringOptions
+    public interface IIpFilteringOptions
+    {
+        string[] Blacklist { get; set; }
+        string[] Whitelist { get; set; }
+        IpRulesSource IpRulesSource { get; set; }
+        IpRulesCacheSource IpRulesCacheSource { get; set; }
+        int? DefaultIpRuleCacheDuration { get; set; }
+        int FailureHttpStatusCode { get; set; }
+        string FailureMessage { get; set; }
+        string[] IgnoredPaths { get; set; }
+    }
+
+    public class IpFilteringOptions : IIpFilteringOptions
     {
         public string[] Blacklist { get; set; }
         public string[] Whitelist { get; set; }
