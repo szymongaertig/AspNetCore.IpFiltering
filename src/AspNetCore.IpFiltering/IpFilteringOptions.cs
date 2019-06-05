@@ -10,6 +10,7 @@ namespace AspNetCore.IpFiltering
         int FailureHttpStatusCode { get; set; }
         string FailureMessage { get; set; }
         string[] IgnoredPaths { get; set; }
+        bool LearningMode { get; set; }
     }
 
     public class IpFilteringOptions : IIpFilteringOptions
@@ -20,7 +21,8 @@ namespace AspNetCore.IpFiltering
         public IpRulesCacheSource IpRulesCacheSource { get; set; } = IpRulesCacheSource.Configuration;
         public int? DefaultIpRuleCacheDuration { get; set; } = 60;
         public int FailureHttpStatusCode { get; set; } = 404;
-        public string FailureMessage { get; set; }
+        public string FailureMessage { get; set; } = "You shall not pass";
         public string[] IgnoredPaths { get; set; }
+        public bool LearningMode { get; set; } = false;
     }
 }

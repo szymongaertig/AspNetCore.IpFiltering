@@ -50,10 +50,23 @@ namespace AspNetCore.IpFiltering
 
                 if (!allowAccess)
                 {
-                    _logger.LogWarning("Forbidden request from IP: {IP} ", remoteIp);
-                    context.Response.StatusCode = _options.FailureHttpStatusCode;
-                    await context.Response.WriteAsync(_options.FailureMessage);
-                    return;
+                    if (_options.LearningMode)
+                    {
+                        _logger.LogWarning(
+                            "Request from not allowed IP: {IP} has been approved because of learning mode turned ON",
+                            remoteIp);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Forbidden request from IP: {IP} ", remoteIp);
+                        context.Response.StatusCode = _options.FailureHttpStatusCode;
+                        if (!string.IsNullOrWhiteSpace(_options.FailureMessage))
+                        {
+                            await context.Response.WriteAsync(_options.FailureMessage);
+                        }
+
+                        return;
+                    }
                 }
             }
 

@@ -127,6 +127,8 @@ Library allows to specify path regex patterns, that will be excluded from white 
       "api\\/some-unguarded-data"]
   },
 ```
+## Learnin mode
+If you want to track unknown IP addresses without blocking them, you need to turn LearningMode on.
 
 ## More samples can be found here: 
 [https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples](https://github.com/garfieldos/AspNetCore.IpFiltering/tree/master/src/samples)
