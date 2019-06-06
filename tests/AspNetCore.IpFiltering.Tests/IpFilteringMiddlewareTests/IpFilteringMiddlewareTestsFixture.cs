@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -32,7 +33,7 @@ namespace AspNetCore.IpFiltering.Tests.IpFilteringMiddlewareTests
             
             HttpContext = new DefaultHttpContext();
             HttpContext.Request.Path = path;
-            
+            HttpContext.Response.Body = new MemoryStream();   
         }
     }
 

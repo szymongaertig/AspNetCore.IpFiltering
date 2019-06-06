@@ -32,7 +32,7 @@ namespace AspNetCore.IpFiltering.Tests.IpFilteringMiddlewareTests
             Assert.Equal(statusCode, fixture.HttpContext.Response.StatusCode);
         }
 
-        /*[Theory]
+        [Theory]
         [InlineData("/any/path", "Some failure message")]
         public async Task ForNotAllowedIp_ThenReturnProperFailureMessage(
             string requestPath,
@@ -54,13 +54,14 @@ namespace AspNetCore.IpFiltering.Tests.IpFilteringMiddlewareTests
 
             // Then           
             string body;
+            fixture.HttpContext.Response.Body.Position = 0;
             using (var sr = new StreamReader(fixture.HttpContext.Response.Body))
             {
                 body = sr.ReadToEnd();
             }
 
             Assert.Equal(failureMessage, body);
-        } */
+        } 
 
         [Theory]
         [InlineData("/any/path")]
